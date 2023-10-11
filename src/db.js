@@ -1,8 +1,18 @@
-const url = "";
-const client = undefined;
+const { MongoClient } = require('mongodb')
+require('dotenv').config()
 
-const dbName = "";
+const url = process.env.MONGO_URI;
+const client = new MongoClient(url);
 
-const connectDB = undefined;
+const dbName = "test";
+
+async function connectDB() {
+    try {
+        await client.connect ();
+    } catch (error) {
+        console.log(error)
+    }
+    return client.db(dbName)
+};
 
 module.exports = connectDB;
